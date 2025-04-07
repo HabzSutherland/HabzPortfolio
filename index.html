@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Habeeb Rahman's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      --text: #000000;
+      --card: #f0f0f0;
+      --primary: #3b82f6;
+      --secondary: #e0e7ff;
+    }
+    [data-theme="dark"] {
+      --bg: linear-gradient(135deg, #1e1e2f 0%, #2c3e50 100%);
+      --text: #ffffff;
+      --card: #1f2937;
+      --primary: #3b82f6;
+      --secondary: #4b5563;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
+    header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    main { padding: 2rem; max-width: 800px; margin: auto; }
+    .section { background: var(--card); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+    h1 { font-size: 2rem; font-weight: 600; }
+    h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    ul { padding-left: 1.2rem; }
+    .chat-box { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-bottom: 1rem; }
+    .chat-msg { padding: 0.6rem 1rem; border-radius: 10px; max-width: 70%; }
+    .user { background-color: #3b82f6; color: white; margin-left: auto; }
+    .bot { background-color: var(--card); }
+    .chat-input { display: flex; gap: 0.5rem; }
+    input[type="text"] { flex: 1; padding: 0.6rem; border: 1px solid #ccc; border-radius: 8px; }
+    button { padding: 0.6rem 1rem; border: none; border-radius: 8px; cursor: pointer; background: #3b82f6; color: white; font-weight: 600; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
+    .theme-toggle { cursor: pointer; font-size: 1.2rem; }
+    footer { text-align: center; font-size: 0.8rem; margin-top: 2rem; opacity: 0.6; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Habeeb's Portfolio 🚀</h1>
+    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+  </header>
+  <main>
+    <div class="section">
+      <h2>About Me</h2>
+      <p>Hi! I'm Habeeb, a creative and passionate developer who builds useful tools and smart chatbots 🤖</p>
+    </div>
+
+    <div class="section">
+      <h2>Projects</h2>
+      <ul>
+        <li>Robility AI Chat - Smart WPF chatbot using MVVM</li>
+        <li>Salesforce Automation Suite - Robust C# workflow tools</li>
+        <li>Dynamic Class Builder - Generate objects on the fly</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Chat with Me!</h2>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-msg bot">Hi there! How can I help you today?</div>
+      </div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Type your message..." onkeydown="handleKey(event)" />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2025 Habeeb Rahman V. All rights reserved.
+    </footer>
+  </main>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const chatInput = document.getElementById('chatInput');
+
+    function sendMessage() {
+      const text = chatInput.value.trim();
+      if (!text) return;
+      appendMessage('user', text);
+      chatInput.value = '';
+
+      setTimeout(() => {
+        appendMessage('bot', `You said: "${text}". That's interesting!`);
+      }, 800);
+    }
+
+    function appendMessage(role, text) {
+      const msg = document.createElement('div');
+      msg.className = `chat-msg ${role}`;
+      msg.textContent = text;
+      chatBox.appendChild(msg);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function handleKey(e) {
+      if (e.key === 'Enter') sendMessage();
+    }
+
+    function toggleTheme() {
+      const root = document.documentElement;
+      const current = root.getAttribute('data-theme');
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
+
+    function setSystemTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const storedTheme = localStorage.getItem('theme');
+      const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    window.addEventListener('DOMContentLoaded', setSystemTheme);
+  </script>
+</body>
+</html>
