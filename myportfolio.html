@@ -7,20 +7,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
+      --bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       --text: #000000;
       --card: #f0f0f0;
+      --primary: #3b82f6;
+      --secondary: #e0e7ff;
     }
     [data-theme="dark"] {
-      --bg: #111827;
+      --bg: linear-gradient(135deg, #1e1e2f 0%, #2c3e50 100%);
       --text: #ffffff;
       --card: #1f2937;
+      --primary: #3b82f6;
+      --secondary: #4b5563;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
     body { background: var(--bg); color: var(--text); transition: background 0.3s, color 0.3s; }
     header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
     main { padding: 2rem; max-width: 800px; margin: auto; }
-    .section { background: var(--card); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
+    .section { background: var(--card); padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
     h1 { font-size: 2rem; font-weight: 600; }
     h2 { font-size: 1.3rem; margin-bottom: 0.5rem; }
     ul { padding-left: 1.2rem; }
@@ -30,7 +34,7 @@
     .bot { background-color: var(--card); }
     .chat-input { display: flex; gap: 0.5rem; }
     input[type="text"] { flex: 1; padding: 0.6rem; border: 1px solid #ccc; border-radius: 8px; }
-    button { padding: 0.6rem 1rem; border: none; border-radius: 8px; cursor: pointer; background: #3b82f6; color: white; font-weight: 600; }
+    button { padding: 0.6rem 1rem; border: none; border-radius: 8px; cursor: pointer; background: #3b82f6; color: white; font-weight: 600; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
     .theme-toggle { cursor: pointer; font-size: 1.2rem; }
     footer { text-align: center; font-size: 0.8rem; margin-top: 2rem; opacity: 0.6; }
   </style>
@@ -101,8 +105,19 @@
     function toggleTheme() {
       const root = document.documentElement;
       const current = root.getAttribute('data-theme');
-      root.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+      const newTheme = current === 'light' ? 'dark' : 'light';
+      root.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
     }
+
+    function setSystemTheme() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const storedTheme = localStorage.getItem('theme');
+      const theme = storedTheme || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    window.addEventListener('DOMContentLoaded', setSystemTheme);
   </script>
 </body>
-</html>x
+</html>
