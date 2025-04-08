@@ -50,20 +50,25 @@
       nav ul { flex-direction: column; }
       #chatbot-icon img { width: 40px; height: 40px; }
     }
-    .profile-pic {
-  width: 100%;
-  max-width: 180px;
+.circle-frame {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto;
   border-radius: 50%;
+  overflow: hidden;
   border: 4px solid #3b82f6;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+.profile-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.3s ease;
 }
 .profile-pic:hover {
   transform: scale(1.05);
 }
-.about-section p {
-  color: var(--text);
-}
+
 
   </style>
 </head>
@@ -125,15 +130,17 @@
       </div>
     </section>
     <section id="about" class="tab-content">
-    <div class="section about-section" style="text-align: center;">
+<div class="section about-section" style="text-align: center;">
   <h2 style="margin-bottom: 1rem;">About Me</h2>
-  <img src="PassportSizeHabeeb.jpg" alt="Habeeb Rahman" class="profile-pic" />
-        <p style="margin-top: 1rem; font-size: 1rem; line-height: 1.6;">
-          👋 Hi! I'm <strong>Habeeb Rahman V</strong>, a passionate developer who loves building intuitive user experiences,
-          smart automation workflows, and AI chatbots. I'm always excited to learn and share new things, and I strive to create
-          meaningful impact through code. Let’s connect and build something awesome together!
-        </p>
-    </div>
+  <div class="circle-frame">
+    <img src="PassportSizeHabeeb.jpg" alt="Habeeb Rahman" class="profile-pic" />
+  </div>
+  <p style="margin-top: 1rem; font-size: 1rem; line-height: 1.6;">
+    👋 Hi! I'm <strong>Habeeb Rahman V</strong>, a passionate developer who loves building intuitive user experiences,
+    smart automation workflows, and AI chatbots. Let’s connect and build something awesome together!
+  </p>
+</div>
+
     </section>
     <div id="chatbot-icon" onclick="toggleChatbot()">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Icon">
