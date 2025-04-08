@@ -55,7 +55,7 @@
 <body>
   <header>
     <h1>Habeeb's Portfolio 🚀</h1>
-    <div class="theme-toggle" onclick="toggleTheme()">🌓</div>
+    <div class="theme-toggle" onclick="toggleTheme()">🌃</div>
   </header>
   <nav>
     <ul>
@@ -95,7 +95,7 @@
       </div>
     </section>
     <div id="chatbot-icon" onclick="toggleChatbot()">
-    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Icon">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Icon">
     </div>
     <div id="chatbot" class="section" style="display:none; position: fixed; bottom: 80px; right: 20px; max-width: 300px;">
       <h2>Chat with Me!</h2>
@@ -125,18 +125,23 @@
     appendMessage('bot', 'Thinking...');
 
     try {
-           const response = await fetch('http://localhost:3000/chat', {
+      const response = await fetch('https://api.chatanywhere.co/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_CHATANYWHERE_API_KEY_HERE'
         },
-        body: JSON.stringify({ message: text })
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            { role: 'system', content: 'You are a helpful assistant.' },
+            { role: 'user', content: text }
+          ]
+        })
       });
 
-
       const data = await response.json();
-
-      const reply = data.reply || "Hmm, I couldn't get a response.";
+      const reply = data.choices?.[0]?.message?.content || "Hmm, I couldn't get a response.";
       replaceLastBotMessage(reply);
 
     } catch (error) {
