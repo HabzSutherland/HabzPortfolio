@@ -116,33 +116,32 @@
   const chatBox = document.getElementById('chatBox');
   const chatInput = document.getElementById('chatInput');
 
-  async function sendMessage() {
-    const text = chatInput.value.trim();
-    if (!text) return;
-    appendMessage('user', text);
-    chatInput.value = '';
+ async function sendMessage() {
+  const text = chatInput.value.trim();
+  if (!text) return;
+  appendMessage('user', text);
+  chatInput.value = '';
 
-    appendMessage('bot', 'Thinking...');
+  appendMessage('bot', 'Thinking...');
 
-    try {
-      const response = await fetch("https://habzportfolio-2.onrender.com/chat", {
+  try {
+    const response = await fetch("https://habzportfolio-2.onrender.com/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userMessage }),
+      body: JSON.stringify({ message: text }),
     });
 
-
-      const data = await response.json();
-      const reply = data.choices?.[0]?.message?.content || "Hmm, I couldn't get a response.";
-      replaceLastBotMessage(reply);
-
-    } catch (error) {
-      console.error('ChatGPT API error:', error);
-      replaceLastBotMessage("Oops! Something went wrong. Try again later.");
-    }
+    const data = await response.json();
+    const reply = data.reply || "Hmm, I couldn't get a response.";
+    replaceLastBotMessage(reply);
+  } catch (error) {
+    console.error('ChatGPT API error:', error);
+    replaceLastBotMessage("Oops! Something went wrong. Try again later.");
   }
+}
+
 
   function appendMessage(role, text) {
     const msg = document.createElement('div');
