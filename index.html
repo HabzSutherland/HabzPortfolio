@@ -137,12 +137,12 @@ async function sendMessage() {
     const reply = data.reply || "Hmm, I couldn't get a response.";
     replaceLastBotMessage(reply);
 
-   } catch (error) {
-    // Log detailed error information for debugging
-    console.error('Error calling OpenAI:', error.response ? error.response.data : error.message);
-    res.status(500).json({ error: error.response ? error.response.data : error.message });
+  } catch (error) {
+    console.error('Error calling OpenAI:', error);
+    replaceLastBotMessage("Oops! Something went wrong. Please try again later.");
   }
 }
+
 
 
 
