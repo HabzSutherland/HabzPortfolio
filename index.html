@@ -136,7 +136,7 @@
 
       const data = await response.json();
 
-      const reply = data.choices?.[0]?.message?.content || "Hmm, I couldn't get a response.";
+      const reply = data.reply || "Hmm, I couldn't get a response.";
       replaceLastBotMessage(reply);
 
     } catch (error) {
