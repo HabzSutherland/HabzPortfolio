@@ -9,7 +9,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 const configuration = new Configuration({
-  apiKey: 'YOUR_OPENAI_API_KEY', // Replace with your actual key or use an env variable on Render
+ apiKey: process.env.OPENAI_API_KEY
 });
 const openai = new OpenAIApi(configuration);
 
