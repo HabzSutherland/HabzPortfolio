@@ -50,6 +50,21 @@
       nav ul { flex-direction: column; }
       #chatbot-icon img { width: 40px; height: 40px; }
     }
+    .profile-pic {
+  width: 100%;
+  max-width: 180px;
+  border-radius: 50%;
+  border: 4px solid #3b82f6;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+.profile-pic:hover {
+  transform: scale(1.05);
+}
+.about-section p {
+  color: var(--text);
+}
+
   </style>
 </head>
 <body>
@@ -85,14 +100,40 @@
     <section id="contact" class="tab-content">
       <div class="section">
         <h2>Contact Me</h2>
-        <p>You can reach me at <a href="mailto:habeeb@example.com">habeeb@example.com</a></p>
+        <ul style="list-style: none; padding: 0;">
+          <li>
+            📞 <strong>Phone:</strong> 
+            <a href="tel:+919567962392">+91 9567962392</a>
+          </li>
+          <li>
+            📧 <strong>Email:</strong> 
+            <a href="Habeeb.RahmanV@sutherlandglobal.com">Habeeb.RahmanV@sutherlandglobal.com</a>
+          </li>
+          <li>
+            💼 <strong>LinkedIn:</strong> 
+            <a href="https://www.linkedin.com/in/habeebrahmanv" target="_blank">linkedin.com/in/habeebrahmanv</a>
+          </li>
+          <li>
+            🐙 <strong>GitHub:</strong> 
+            <a href="https://github.com/habeeb-rahman" target="_blank">github.com/habeeb-rahman</a>
+          </li>
+          <li>
+            📍 <strong>Location:</strong> 
+            Kerala, India
+          </li>
+        </ul>
       </div>
     </section>
     <section id="about" class="tab-content">
-      <div class="section">
-        <h2>About Me</h2>
-        <img src="PassportSizeHabeeb.jpg" alt="Your Image" style="width:100%;max-width:200px;border-radius:50%; border: 4px solid #3b82f6;">
-      </div>
+    <div class="section about-section" style="text-align: center;">
+  <h2 style="margin-bottom: 1rem;">About Me</h2>
+  <img src="PassportSizeHabeeb.jpg" alt="Habeeb Rahman" class="profile-pic" />
+        <p style="margin-top: 1rem; font-size: 1rem; line-height: 1.6;">
+          👋 Hi! I'm <strong>Habeeb Rahman V</strong>, a passionate developer who loves building intuitive user experiences,
+          smart automation workflows, and AI chatbots. I'm always excited to learn and share new things, and I strive to create
+          meaningful impact through code. Let’s connect and build something awesome together!
+        </p>
+    </div>
     </section>
     <div id="chatbot-icon" onclick="toggleChatbot()">
       <img src="https://cdn-icons-png.flaticon.com/512/4712/4712027.png" alt="Chatbot Icon">
