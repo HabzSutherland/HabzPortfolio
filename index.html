@@ -125,17 +125,14 @@
     appendMessage('bot', 'Thinking...');
 
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+           const response = await fetch('http://localhost:3000/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': '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' // <-- Replace with your OpenAI API key
         },
-        body: JSON.stringify({
-          model: 'gpt-3.5-turbo', // Or 'gpt-4' if you have access
-          messages: [{ role: 'user', content: text }]
-        })
+        body: JSON.stringify({ message: text })
       });
+
 
       const data = await response.json();
 
