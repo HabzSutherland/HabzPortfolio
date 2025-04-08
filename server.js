@@ -1,39 +1,33 @@
+// server.js
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv').config({ path: './key.env' });
-const axios = require('axios');
+const { Configuration, OpenAIApi } = require('openai');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 
-const PORT = 3000;
+const configuration = new Configuration({
+  apiKey: 'YOUR_OPENAI_API_KEY', // Replace with your actual key or use an env variable on Render
+});
+const openai = new OpenAIApi(configuration);
 
 app.post('/chat', async (req, res) => {
-  const userMessage = req.body.message;
+  const { message } = req.body;
 
   try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/chat/completions',
-      {
-        model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: userMessage }]
-      },
-      {
-        headers: {
-          'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-          'Content-Type': 'application/json'
-        }
-      }
-    );
+    const completion = await openai.createChatCompletion({
+      model: 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: message }],
+    });
 
-    const reply = response.data.choices[0].message.content;
-    res.json({ reply });
-  } catch (err) {
-    console.error('OpenAI Error:', err.response?.data || err.message);
-    res.status(500).send('Something went wrong with OpenAI.');
+    res.json({ reply: completion.data.choices[0].message.content });
+  } catch (error) {
+    console.error('OpenAI error:', error.message);
+    res.status(500).json({ reply: 'Error communicating with ChatGPT API.' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
