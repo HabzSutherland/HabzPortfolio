@@ -134,14 +134,17 @@ async function sendMessage() {
     });
 
     const data = await response.json();
+    console.log("Server response:", data);
+
     const reply = data.reply || "Hmm, I couldn't get a response.";
     replaceLastBotMessage(reply);
 
   } catch (error) {
-    console.error('Error calling OpenAI:', error);
+    console.error("Fetch error:", error);
     replaceLastBotMessage("Oops! Something went wrong. Please try again later.");
   }
 }
+
 
 
 
