@@ -204,13 +204,17 @@ async function sendMessage() {
 
 
 
-  function appendMessage(role, text) {
-    const msg = document.createElement('div');
-    msg.className = `chat-msg ${role}`;
-    msg.textContent = text;
-    chatBox.appendChild(msg);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
+ function appendMessage(role, text) {
+  const msg = document.createElement('div');
+  msg.className = `chat-msg ${role}`;
+
+  // ✅ Allow HTML (e.g., links)
+  msg.innerHTML = text;
+
+  chatBox.appendChild(msg);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
 
   function replaceLastBotMessage(newText) {
     const botMessages = chatBox.querySelectorAll('.chat-msg.bot');
